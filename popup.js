@@ -8,8 +8,11 @@
  *
  * @type {string}
  */
-var QUERY = 'kittens';
-var searchstring;
+ var QUERY = 'kittens';
+
+ var searchstring =function(name){
+  var value =name;
+ }
 var kittenGenerator = {
   /**
    * Flickr URL that will give us lots and lots of whatever we're looking for.
@@ -20,14 +23,12 @@ var kittenGenerator = {
    * @type {string}
    * @private
    */
-  searchOnFlickr_: 'https://secure.flickr.com/services/rest/?' +
-      'method=flickr.photos.search&' +
-      'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
-      'text=' + encodeURIComponent(searchstring) + '&' +
-      'safe_search=1&' +
-      'content_type=1&' +
-      'sort=interestingness-desc&' +
-      'per_page=20',
+  
+  // searchvalue : function(name)
+  // {
+  //   searchstring = name;
+  //   console.log(searchstring);
+  // },
 
   /**
    * Sends an XHR GET request to grab photos of lots and lots of kittens. The
@@ -36,8 +37,16 @@ var kittenGenerator = {
    * @public
    */
   requestKittens: function() {
+    console.log(searchstring.value);
     var req = new XMLHttpRequest();
-    req.open("GET", this.searchOnFlickr_, true);
+    req.open("GET",'https://secure.flickr.com/services/rest/?' +
+      'method=flickr.photos.search&' +
+      'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
+      'text=' + encodeURIComponent(searchstring.value) + '&' +
+      'safe_search=1&' +
+      'content_type=1&' +
+      'sort=interestingness-desc&' +
+      'per_page=20', true);
     req.onload = this.showPhotos_.bind(this);
     req.send(null);
   },
@@ -57,6 +66,7 @@ var kittenGenerator = {
       img.src = this.constructKittenURL_(kittens[i]);
       img.setAttribute('alt', kittens[i].getAttribute('title'));
       var div = document.createElement('div');
+      div.setAttribute("id","child");
       div.appendChild(img);
       document.body.appendChild(div);
     }
@@ -85,9 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
  var button = document.getElementById("click1");
 // Run our kitten generation script as soon as the document's DOM is ready.
  button.addEventListener("click", function () {
-  var searchstring = document.getElementById('search').value;
-  console.log(searchstring);
-  if(searchstring){
+  var search = document.getElementById('search').value;
+  searchstring.value=search;
+  if(search!=='undefined'){
    kittenGenerator.requestKittens();
  }
  },false);

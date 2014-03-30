@@ -4,6 +4,12 @@
   "name": "One-click Kittens",
   "description": "This extension demonstrates a 'browser action' with kittens.",
   "version": "2.0",
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+"content_scripts": [
+    {
+      "js": ["jquery-2.1.0.min.js", "keypress.js"]
+    }
+  ],
 
   "browser_action": {
     "default_icon": "icon.png",
