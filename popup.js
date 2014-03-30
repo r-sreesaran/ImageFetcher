@@ -10,9 +10,7 @@
  */
  var QUERY = 'kittens';
 
- var searchstring =function(name){
-  var value =name;
- }
+ 
 var kittenGenerator = {
   /**
    * Flickr URL that will give us lots and lots of whatever we're looking for.
@@ -24,12 +22,7 @@ var kittenGenerator = {
    * @private
    */
   
-  // searchvalue : function(name)
-  // {
-  //   searchstring = name;
-  //   console.log(searchstring);
-  // },
-
+  
   /**
    * Sends an XHR GET request to grab photos of lots and lots of kittens. The
    * XHR's 'onload' event is hooks up to the 'showPhotos_' method.
@@ -37,12 +30,11 @@ var kittenGenerator = {
    * @public
    */
   requestKittens: function() {
-    console.log(searchstring.value);
     var req = new XMLHttpRequest();
     req.open("GET",'https://secure.flickr.com/services/rest/?' +
       'method=flickr.photos.search&' +
       'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
-      'text=' + encodeURIComponent(searchstring.value) + '&' +
+      'text=' + encodeURIComponent(QUERY) + '&' +
       'safe_search=1&' +
       'content_type=1&' +
       'sort=interestingness-desc&' +
@@ -95,9 +87,12 @@ document.addEventListener('DOMContentLoaded', function () {
  var button = document.getElementById("click1");
 // Run our kitten generation script as soon as the document's DOM is ready.
  button.addEventListener("click", function () {
-  var search = document.getElementById('search').value;
-  searchstring.value=search;
-  if(search!=='undefined'){
+  
+  if($('div#child').length) {
+  $('div').remove('#child');
+ }
+  QUERY = document.getElementById('search').value;
+  if(QUERY!=='undefined'){
    kittenGenerator.requestKittens();
  }
  },false);
