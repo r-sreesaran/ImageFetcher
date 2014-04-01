@@ -1,6 +1,6 @@
 
  var QUERY = 'default';
-
+ var NO_OF_IMAGES=20;
  
 var kittenGenerator = {
  
@@ -13,7 +13,7 @@ var kittenGenerator = {
       'safe_search=1&' +
       'content_type=1&' +
       'sort=interestingness-desc&' +
-      'per_page=20', true);
+      'per_page='+NO_OF_IMAGES, true);
     req.onload = this.showPhotos_.bind(this);
     req.send(null);
   },
@@ -51,7 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
   $('div').remove('#child');
  }
   QUERY = document.getElementById('search').value;
+  NO_OF_IMAGES = document.getElementById('imagecount').value;
   if(QUERY!=='undefined'){
+  
    kittenGenerator.requestKittens();
  }
  },false);
