@@ -4,33 +4,43 @@
     <title>Getting Started Extension's Popup</title>
     <script type="text/javascript" src="popup.js"></script>
     <script type="text/javascript" src="jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="dropdown.js"></script>
-    
-    <link rel="stylesheet" type="css" href="dropdown.css">
+    <script type="text/javascript" src="jquery.mousewheel-3.0.6.pack.js"></script>
+    <script type="text/javascript" src="jquery.fancybox.js"></script>
+    <link rel="stylesheet" type="text/css" href="jquery.fancybox.css" media="screen" />
+    <script type="text/javascript" src="ImageMoveOverEffects.js"></script>
     <style>
       body {
-        min-width: 500px;
+        width: 360px;
         overflow-x: hidden;
+      }
+      a
+      {
+        width: 100px;
+        min-height: 100px;
       }
       img {
         margin: 5px;
         border: 2px solid black;
-        vertical-align: middle;
+        vertical-align:center;
         width: 75px;
         height: 75px;
       }
-      div{
-        width:500px;
-        height:30px;
+      div {
+        width:3px;
+        height:50px;
     
       }
+     div.parent {
+       width: 360px;
+       height: 30px; 
+     }
       #child { 
         height: 100px;
       }
       
       input {
     height: 26px;
-    width: 30%;
+    width: 35%;
     padding: 0 12px 0 10px;
     border-width: 1px;
     border-style: solid;
@@ -68,8 +78,8 @@ button{
   width: 70px;
   height: 25px;
   margin-left: 0px;
+  float: right;
   background-color: transparent;
-  float: left;
   border-color: #ffffff;
   border-radius: 5px;
   border-width: 1px;
@@ -86,7 +96,7 @@ button:focus
 {
   outline: none;
   border-color: transparent;
-  float: left;
+  float: right;
   webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
     -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
     -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
@@ -99,22 +109,14 @@ button:focus
      </script>
   </head>
   <body>
-    <div class="master" height="10px">
+    <div class="parent" height="10px">
     <input  type="text" id="search" placeholder="Search..." value=""/>
     <input  type="text" id="imagecount" placeholder="No of Images ...." value=""/>
     
-    <dl class="dropdown" >
-  <dt><a><span>shapes </span></a></dt>
-    <dd>
-      <ul>
-        <li><a>square</a></li>
-        <li><a>circular </a></li>
-       </ul>
-    </dd>
-</dl>
 <button  id="click1">search</button>
   
     </div>
+
 
   </body>
 </html>

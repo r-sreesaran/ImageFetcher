@@ -2,13 +2,13 @@
  var QUERY = 'default';
  var NO_OF_IMAGES=20;
  
-var kittenGenerator = {
+var imageGenerator = {
  
-  requestKittens: function() {
+  requestImages: function() {
     var req = new XMLHttpRequest();
     req.open("GET",'https://secure.flickr.com/services/rest/?' +
       'method=flickr.photos.search&' +
-      'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
+      'api_key=e5b89a320f9a5ee8c5a6c567de7a3a7a&' +
       'text=' + encodeURIComponent(QUERY) + '&' +
       'safe_search=1&' +
       'content_type=1&' +
@@ -20,25 +20,27 @@ var kittenGenerator = {
 
   
   showPhotos_: function (e) {
-    var kittens = e.target.responseXML.querySelectorAll('photo');
-    for (var i = 0; i < kittens.length; i++) {
+    var images = e.target.responseXML.querySelectorAll('photo');
+    for (var i = 0; i < images.length; i++) {
+      var a = document.createElement('a');
+      a.setAttribute('class','fancybox-thumbs');
+      a.setAttribute('data-fancybox-group','gallery');
+      a.href = this.constructImagesURL_(images[i]);
       var img = document.createElement('img');
-      img.src = this.constructKittenURL_(kittens[i]);
-      img.setAttribute('alt', kittens[i].getAttribute('title'));
-      var div = document.createElement('div');
-      div.setAttribute("id","child");
-      div.appendChild(img);
-      document.body.appendChild(div);
+      img.src = this.constructImagesURL_(images[i]);
+      img.setAttribute('alt', images[i].getAttribute('title'));
+      a.appendChild(img)
+      document.body.appendChild(a);
     }
   },
 
   
-  constructKittenURL_: function (photo) {
+  constructImagesURL_: function (photo) {
     return "http://farm" + photo.getAttribute("farm") +
         ".static.flickr.com/" + photo.getAttribute("server") +
         "/" + photo.getAttribute("id") +
         "_" + photo.getAttribute("secret") +
-        "_s.jpg";
+        "_c.jpg";
   }
 };
 
@@ -50,11 +52,14 @@ document.addEventListener('DOMContentLoaded', function () {
   if($('div#child').length) {
   $('div').remove('#child');
  }
+ if($('img').length) {
+  $('img').remove();
+ }
   QUERY = document.getElementById('search').value;
   NO_OF_IMAGES = document.getElementById('imagecount').value;
   if(QUERY!=='undefined'){
   
-   kittenGenerator.requestKittens();
+   imageGenerator.requestImages();
  }
  },false);
 });
